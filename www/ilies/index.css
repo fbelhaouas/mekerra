@@ -17,7 +17,7 @@ body{
   .navigation ul{
                  display:flex;
                  list-style-type:none;
-                 gap:2rem
+                 gap:3rem
                  }
   .navigation a{
                 text-decoration:none;
