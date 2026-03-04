@@ -17,11 +17,12 @@ body{
   .navigation ul{
                  display:flex;
                  list-style-type:none;
-                 gap:3rem
+                 gap:3rem;
                  }
   .navigation a{
                 text-decoration:none;
                 color:#eeeeee;
+                transiation:0,3s;
   } 
   .navigation a:hover{
                     color:#00adb5;
