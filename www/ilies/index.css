@@ -36,3 +36,6 @@ border: none;
 height: 1px;
 background-color: #aaaaaa;
 }
+hr{
+opacity: 0.1;
+}
