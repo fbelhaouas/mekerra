@@ -38,10 +38,14 @@ body{
   opacity: 2;
   margin: 20px 0;
 }
- .hero{
+ .hero {
        display: flex;
        justify-content: space-between;
        align-items: center;
        margin: 5rem auto;
        max width: 1200px; 
+}
+  .arrow {
+         position : absolute;
+         transform: tranlateX(-5.5rem) translateY(1.5rem);
 }
