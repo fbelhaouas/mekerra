@@ -35,7 +35,7 @@ body{
   border: none;
   height: 2px;
   background-color: #aaaaaa;
-  opacity: 2;
+  opacity: 1;
   margin: 20px 0;
 }
  .hero {
@@ -43,11 +43,13 @@ body{
        justify-content: space-between;
        align-items: center;
        margin: 5rem auto;
-       max width: 1200px; 
+       max-width: 1200px; 
 }
   .arrow {
          position : absolute;
-         transform: tranlateX(-5.5rem) translateY(1.5rem);
+         transform: tranlateX(-5.5rem)
+} translateY(1.5rem);
+
 }
   .heroSub {
       display: flex;
@@ -59,6 +61,6 @@ body{
      color: #eeeeee;
 }
    .title {
-     font-size: 4rem
+     font-size: 4rem;
      color: #00abd5;
 }
