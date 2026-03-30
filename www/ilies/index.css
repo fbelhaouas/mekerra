@@ -49,3 +49,16 @@ body{
          position : absolute;
          transform: tranlateX(-5.5rem) translateY(1.5rem);
 }
+  .heroSub {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+}
+   .name {
+     font-size: 3rem;
+     color: #eeeeee;
+}
+   .title {
+     font-size: 4rem
+     color: #00abd5;
+}
