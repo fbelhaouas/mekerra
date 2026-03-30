@@ -2,7 +2,7 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  scroll-behavior:smouth;
+  scroll-behavior: smouth;
 } 
 body{
      background-color:#222831;
@@ -22,7 +22,7 @@ body{
   .navigation a{
                 text-decoration:none;
                 color:#eeeeee;
-                transiation:0,3s;
+                transiation: 0,3s;
   } 
   .navigation a:hover{
                     color:#00adb5;
