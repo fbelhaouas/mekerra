@@ -31,11 +31,10 @@ body{
                  margin-right:60px;
                  padding-right:70px;
   }
- hr{
-border: none;
-height: 1px;
-background-color: #aaaaaa;
-}
-hr{
-opacity: 0.1;
+ hr {
+  border: none;
+  height: 2px;
+  background-color: white;
+  opacity: 1;
+  margin: 20px 0;
 }
