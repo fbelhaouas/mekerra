@@ -47,9 +47,8 @@ body{
 }
   .arrow {
          position : absolute;
-         transform: tranlateX(-5.5rem)
-} translateY(1.5rem);
-
+  transform: tranlateX(-5.5rem)   
+  translateY(1.5rem);
 }
   .heroSub {
       display: flex;
