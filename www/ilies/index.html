@@ -36,14 +36,5 @@ href="#Inventory">Inventory</a></li>
 <div class="heroBtns">  
 <a class="aboutMe"href="#aboutMe">About me</a>
 </section>
-<button id="installBtn" style="padding:10px 20px; font-size:16px; display:none;">
-    Install App
-  </button>
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js')
-    .then(() => console.log("Service Worker Registered"));
-}
-</script>
   </body>
 </html>
