@@ -42,27 +42,46 @@ body{
   opacity: 25%;
   margin: 20px 0;
 }
-  .hero{
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   margin: 5rem auto; 
-   max-width: 1200px;
+  .hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #0a0a0a;
 }
-  .arrow{
-     position: absolute;
-   transform: translateX(-5.5rem) translateY(1.5rem);
+
+.heroSub {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
-  .heroSub{
-     display: flex;
-     flex-direction: column;
-     gap: 0.5rem;
+
+.name {
+  font-size: 40px;
+  color: white;
 }
-  .name{
-       font-size: 3rem;
-       color: #eeeeee;
-{
-  .title{
-     font-size: 4rem;
-     color: #DC143C;
+
+.title {
+  font-size: 28px;
+  color: #DC143C;
+  text-shadow: 0 0 10px #DC143C;
+}
+
+.heroBtns {
+  margin-top: 10px;
+}
+
+.aboutMe {
+  background-color: #DC143C;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.aboutMe:hover {
+  background-color: #FF003C;
+  transform: scale(1.05);
 }
