@@ -75,3 +75,6 @@ body{
   background-color: red;
   color: white;
 }
+ul {
+  list-style: none;
+}
