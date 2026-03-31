@@ -42,4 +42,10 @@ body{
   opacity: 25%;
   margin: 20px 0;
 }
- 
+  .hero{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin: 5rem auto; 
+   max-width: 1200px;
+}
