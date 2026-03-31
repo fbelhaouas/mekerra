@@ -62,22 +62,3 @@ justify-content:  space-between;
      font-size: 3rem;
      color: #eeeeee;
 }
-   .title {
-     font-size: 4rem;
-     color: #00abd5;
-}
-.aboutMe {
-  background-color: white;
-  color: black;
-  text-decoration: none; 
-  padding: 10px 20px;
-}
-
-
-.aboutMe:hover {
-  background-color: red;
-  color: white;
-}
-ul {
-  list-style: none;
-}
