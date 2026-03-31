@@ -35,30 +35,7 @@ body{
   border: none;
   height: 2px;
   background-color: #aaaaaa;
-  opacity: 1;
+  opacity: 25%;
   margin: 20px 0;
 }
- .hero {
-       display: flex;
-justify-content:  space-between;
-    align-items: center;
-   margin: 5rem auto;
-       max-width: 1200px; 
-}
-  .arrow {
-         position : absolute;
-  transform: tranlateX(-5.5rem)   
-  translateY(1.5rem);
-}
- .heroSub {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; 
-  height: 100vh;
-  text-align: center;
-}
-   .name {
-     font-size: 3rem;
-     color: #eeeeee;
-}
+ 
