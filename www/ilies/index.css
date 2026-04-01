@@ -64,7 +64,7 @@ body{
 
 .title {
   font-size: 28px;
-  color: #DC143C;
+  color: #8A0303;
   text-shadow: 0 0 10px #DC143C;
 }
 
@@ -73,7 +73,7 @@ body{
 }
 
 .aboutMe {
-  background-color: #DC143C;
+  background-color: #8A0303;
   color: white;
   padding: 10px 20px;
   text-decoration: none;
