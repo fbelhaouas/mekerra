@@ -54,31 +54,32 @@ body{
 .heroSub {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 0.5rem;
 }
 
 .name {
-  font-size: 40px;
+  font-size: 3rem;
   color: white;
 }
 
 .title {
-  font-size: 28px;
-  color: #8A0303;
-  text-shadow: 0 0 10px #8A0303;
+  font-size: 4rem;
+  color: #00adb5 ;
 }
 
 .heroBtns {
-  margin-top: 10px;
+ display: flex;
+ gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .About me {
-  background-color: #8A0303;
-  color: white;
-  padding: 10px 20px;
+  background-color: #00adb5;
+  color: #eeeeee
+  border-radius: 24px;
   text-decoration: none;
-  border-radius: 8px;
-  transition: 0.3s;
+  padding: 0.5rem 1.5rem;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
 .About me: hover {
