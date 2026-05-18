@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VORTEXA PRIME</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--cyan:#00f2fe;
+--pink:#ff00c1;
+--gold:#ffbd39;
+--bg:#020617;
+--card:#0f172a;
+}
+
+*{box-sizing:border-box}
+
+body{
+background:linear-gradient(180deg,#020617,#030d1f);
+color:white;
+font-family:'Orbitron',sans-serif;
+margin:0;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding-bottom:100px;
+}
+
+/* HUD */
+.hud{
+position:sticky;
+top:0;
+width:100%;
+background:rgba(15,23,42,.95);
+padding:15px;
+display:flex;
+justify-content:space-around;
+border-bottom:2px solid var(--cyan);
+z-index:10;
+backdrop-filter:blur(10px);
+}
+
+.stat-val{
+display:block;
+font-size:1.5rem;
+color:var(--gold);
+text-shadow:0 0 10px var(--gold);
+}
+
+/* GAME */
+.game-container{
+margin-top:30px;
+background:var(--card);
+padding:25px;
+border-radius:20px;
+border:2px solid var(--cyan);
+text-align:center;
+box-shadow:0 0 25px rgba(0,242,254,.2);
+}
+
+.diff-selector{
+display:flex;
+gap:10px;
+justify-content:center;
+margin-bottom:20px;
+}
+
+.diff-btn{
+background:#1e293b;
+border:1px solid var(--cyan);
+color:white;
+padding:10px 15px;
+cursor:pointer;
+border-radius:8px;
+transition:.2s;
+}
+
+.diff-btn:hover{
+transform:scale(1.1);
+}
+
+.diff-btn.active{
+background:var(--cyan);
+color:black;
+font-weight:bold;
+box-shadow:0 0 10px var(--cyan);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,90px);
+gap:10px;
+}
+
+.cell{
+width:90px;
+height:90px;
+background:#020617;
+border:2px solid #1e293b;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:2.5rem;
+cursor:pointer;
+border-radius:10px;
+transition:.2s;
+}
+
+.cell:hover{
+background:rgba(0,242,254,.1);
+transform:scale(1.05);
+}
+
+.cell.x{
+color:var(--cyan);
+text-shadow:0 0 10px var(--cyan);
+animation:pop .2s;
+}
+
+.cell.o{
+color:var(--pink);
+text-shadow:0 0 10px var(--pink);
+animation:pop .2s;
+}
+
+@keyframes pop{
+0%{transform:scale(0)}
+100%{transform:scale(1)}
+}
+
+/* STORE */
+.store-title{
+margin-top:70px;
+font-size:2rem;
+color:var(--pink);
+text-shadow:0 0 10px var(--pink);
+}
+
+.store-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+width:90%;
+max-width:1000px;
+margin-top:30px;
+}
+
+.item-card{
+background:var(--card);
+padding:20px;
+border-radius:15px;
+text-align:center;
+transition:.3s;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.item-card:hover{
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 0 20px rgba(255,0,193,.3);
+}
+
+.item-img{
+width:100%;
+height:150px;
+border-radius:10px;
+background-size:cover;
+background-position:center;
+margin-bottom:15px;
+}
+
+.buy-btn{
+background:linear-gradient(45deg,var(--cyan),var(--pink));
+border:none;
+padding:10px;
+width:100%;
+border-radius:8px;
+cursor:pointer;
+color:white;
+font-weight:bold;
+transition:.2s;
+}
+
+.buy-btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 10px var(--cyan);
+}
+</style>
+</head>
+
+<body>
+
+<div class="hud">
+<div>COINS<span id="coins" class="stat-val">0</span></div>
+<div>WINS<span id="wins" class="stat-val">0</span></div>
+</div>
+
+<div class="game-container">
+
+<div class="diff-selector">
+<button class="diff-btn active" data-level="easy">EASY</button>
+<button class="diff-btn" data-level="hard">HARD</button>
+<button class="diff-btn" data-level="god">LEGEND</button>
+</div>
+
+<div id="status" style="margin-bottom:15px;color:var(--cyan)">
+YOUR TURN
+</div>
+
+<div class="grid">
+<div class="cell"></div><div class="cell"></div><div class="cell"></div>
+<div class="cell"></div><div class="cell"></div><div class="cell"></div>
+<div class="cell"></div><div class="cell"></div><div class="cell"></div>
+</div>
+
+<button onclick="resetGame()" style="margin-top:20px;padding:10px;border:1px solid var(--cyan);background:none;color:var(--cyan);width:100%;border-radius:8px;">
+RESET
+</button>
+
+</div>
+
+<h1 class="store-title">VORTEXA PRIME STORE</h1>
+
+<div class="store-grid">
+
+<div class="item-card">
+<div class="item-img" style="background-image:url('https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=500')"></div>
+<h3>PS5</h3><p style="color:var(--gold)">20000</p>
+<button class="buy-btn" onclick="buy(20000)">BUY</button>
+</div>
+
+<div class="item-card">
+<div class="item-img" style="background-image:url('https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=500')"></div>
+<h3>XBOX</h3><p style="color:var(--gold)">18000</p>
+<button class="buy-btn" onclick="buy(18000)">BUY</button>
+</div>
+
+<div class="item-card">
+<div class="item-img" style="background-image:url('https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=500')"></div>
+<h3>PC RTX</h3><p style="color:var(--gold)">60000</p>
+<button class="buy-btn" onclick="buy(60000)">BUY</button>
+</div>
+
+<div class="item-card">
+<div class="item-img" style="background-image:url('https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=500')"></div>
+<h3>VR HEADSET</h3><p style="color:var(--gold)">32000</p>
+<button class="buy-btn" onclick="buy(32000)">BUY</button>
+</div>
+
+<div class="item-card">
+<div class="item-img" style="background-image:url('https://images.unsplash.com/photo-1585079542156-2755d9c8affb?q=80&w=500')"></div>
+<h3>LEGO TECH</h3><p style="color:var(--gold)">12000</p>
+<button class="buy-btn" onclick="buy(12000)">BUY</button>
+</div>
+
+</div>
+
+<script>
+let board=["","","","","","","","",""];
+let active=true;
+let coins=0;
+let wins=0;
+let difficulty="easy";
+
+const cells=document.querySelectorAll(".cell");
+
+cells.forEach((c,i)=>{
+c.addEventListener("click",()=>playerMove(i));
+});
+
+document.querySelectorAll(".diff-btn").forEach(btn=>{
+btn.addEventListener("click",()=>{
+difficulty=btn.dataset.level;
+document.querySelectorAll(".diff-btn").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+resetGame();
+});
+});
+
+function playerMove(i){
+if(board[i]!==""||!active)return;
+
+board[i]="X";
+render();
+
+if(!checkEnd()){
+setTimeout(aiMove,400);
+}
+}
+
+function aiMove(){
+if(!active)return;
+
+let empty=board.map((v,i)=>v===""?i:null).filter(v=>v!==null);
+let move;
+
+if(difficulty==="easy"){
+move=empty[Math.floor(Math.random()*empty.length)];
+}
+else if(difficulty==="hard"){
+move=smartMove() ?? empty[0];
+}
+else{
+move=bestMove();
+}
+
+if(move!==undefined){
+board[move]="O";
+render();
+checkEnd();
+}
+}
+
+function smartMove(){
+const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+for(let l of w){
+let v=l.map(i=>board[i]);
+if(v.filter(x=>x==="O").length===2 && v.includes("")) return l[v.indexOf("")];
+}
+for(let l of w){
+let v=l.map(i=>board[i]);
+if(v.filter(x=>x==="X").length===2 && v.includes("")) return l[v.indexOf("")];
+}
+return board[4]===""?4:null;
+}
+
+function bestMove(){
+let bestScore=-Infinity;
+let move;
+
+for(let i=0;i<9;i++){
+if(board[i]===""){
+board[i]="O";
+let score=minimax(board,false);
+board[i]="";
+if(score>bestScore){
+bestScore=score;
+move=i;
+}
+}
+}
+return move;
+}
+
+function minimax(b,isMax){
+let result=evaluate(b);
+if(result!==null) return result;
+
+if(isMax){
+let best=-Infinity;
+for(let i=0;i<9;i++){
+if(b[i]===""){
+b[i]="O";
+best=Math.max(best,minimax(b,false));
+b[i]="";
+}
+}
+return best;
+}else{
+let best=Infinity;
+for(let i=0;i<9;i++){
+if(b[i]===""){
+b[i]="X";
+best=Math.min(best,minimax(b,true));
+b[i]="";
+}
+}
+return best;
+}
+}
+
+function evaluate(b){
+const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+for(let l of w){
+if(b[l[0]]&&b[l[0]]===b[l[1]]&&b[l[0]]===b[l[2]]){
+if(b[l[0]]==="O") return 10;
+if(b[l[0]]==="X") return -10;
+}
+}
+if(!b.includes("")) return 0;
+return null;
+}
+
+function render(){
+cells.forEach((c,i)=>{
+c.innerText=board[i];
+c.className="cell "+(board[i]?board[i].toLowerCase():"");
+});
+}
+
+function checkEnd(){
+const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+for(let l of w){
+if(board[l[0]]&&board[l[0]]===board[l[1]]&&board[l[0]]===board[l[2]]){
+active=false;
+
+if(board[l[0]]==="X"){
+coins+=(difficulty==="god"?100:(difficulty==="hard"?50:20));
+wins++;
+status("WIN");
+}else{
+status("LOSE");
+}
+updateStats();
+return true;
+}
+}
+
+if(!board.includes("")){
+active=false;
+status("DRAW");
+return true;
+}
+
+return false;
+}
+
+function status(t){
+document.getElementById("status").innerText=t;
+}
+
+function updateStats(){
+document.getElementById("coins").innerText=coins;
+document.getElementById("wins").innerText=wins;
+}
+
+function resetGame(){
+board=["","","","","","","","",""];
+active=true;
+status("YOUR TURN");
+render();
+}
+
+function buy(price){
+if(coins>=price){
+coins-=price;
+updateStats();
+alert("PURCHASE SUCCESS");
+}else{
+alert("NOT ENOUGH COINS");
+}
+}
+</script>
+
+</body>
+</html>
