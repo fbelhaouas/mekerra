@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VORTEXA PRIME</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--cyan:#00f2fe;
+--pink:#ff00c1;
+--gold:#ffbd39;
+--bg:#020617;
+--card:#0f172a;
+}
+
+*{box-sizing:border-box}
+
+body{
+background:linear-gradient(180deg,#020617,#030d1f);
+color:white;
+font-family:'Orbitron',sans-serif;
+margin:0;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding-bottom:100px;
+}
+
+/* ═══ INTRO ═══ */
+#intro{
+position:fixed;
+inset:0;
+background:#020617;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:999;
+overflow:hidden;
+}
+
+#intro-stars{position:absolute;inset:0;overflow:hidden;}
+.istar{
+position:absolute;background:#fff;border-radius:50%;
+animation:itwinkle var(--d) ease-in-out infinite alternate;
+}
+@keyframes itwinkle{from{opacity:.1}to{opacity:1}}
+
+.intro-scanline{
+position:absolute;top:-5%;left:0;width:100%;height:3px;
+background:linear-gradient(90deg,transparent,rgba(0,242,254,.7),transparent);
+animation:iscan 2.5s linear infinite;
+}
+@keyframes iscan{to{top:105%}}
+
+.intro-grid{
+position:absolute;inset:0;
+background-image:linear-gradient(rgba(0,242,254,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,242,254,.03) 1px,transparent 1px);
+background-size:50px 50px;
+animation:igrid 6s linear infinite;
+}
+@keyframes igrid{to{background-position:50px 50px}}
+
+.intro-corner{position:absolute;width:50px;height:50px;opacity:0;animation:icorner .4s forwards;}
+.intro-corner::before,.intro-corner::after{content:'';position:absolute;background:var(--cyan);}
+.intro-corner::before{width:100%;height:2px;top:0;}
+.intro-corner::after{height:100%;width:2px;}
+.ic-tl{top:25px;left:25px;}.ic-tl::after{left:0;}
+.ic-tr{top:25px;right:25px;transform:scaleX(-1);}.ic-tr::after{left:0;}
+.ic-bl{bottom:25px;left:25px;transform:scaleY(-1);}.ic-bl::after{left:0;}
+.ic-br{bottom:25px;right:25px;transform:scale(-1);}.ic-br::after{left:0;}
+@keyframes icorner{to{opacity:1}}
+
+.intro-logo{position:relative;text-align:center;z-index:10;}
+
+.intro-publisher{
+font-size:.6rem;letter-spacing:.5em;color:rgba(0,242,254,.5);
+margin-bottom:25px;opacity:0;animation:ifadeup .7s .4s forwards;
+}
+
+.intro-xo{display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:8px;}
+
+.intro-x{
+font-size:4.5rem;font-weight:900;color:var(--cyan);
+text-shadow:0 0 20px var(--cyan),0 0 60px rgba(0,242,254,.4);
+opacity:0;animation:ixslide .6s .9s cubic-bezier(.2,0,0,1) forwards;
+}
+.intro-o{
+font-size:4.5rem;font-weight:900;color:var(--pink);
+text-shadow:0 0 20px var(--pink),0 0 60px rgba(255,0,193,.4);
+opacity:0;animation:ioslide .6s .9s cubic-bezier(.2,0,0,1) forwards;
+}
+@keyframes ixslide{from{opacity:0;transform:translateX(-70px) scale(.4)}to{opacity:1;transform:none}}
+@keyframes ioslide{from{opacity:0;transform:translateX(70px) scale(.4)}to{opacity:1;transform:none}}
+
+.intro-title{
+font-size:clamp(2.8rem,9vw,6.5rem);font-weight:900;letter-spacing:.15em;
+background:linear-gradient(180deg,#fff 0%,var(--cyan) 50%,var(--pink) 100%);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+filter:drop-shadow(0 0 30px rgba(0,242,254,.5));
+opacity:0;animation:ititlerv 1.1s 1.4s cubic-bezier(.1,0,0,1) forwards;
+}
+@keyframes ititlerv{
+0%{opacity:0;transform:scaleX(.2) scaleY(2);letter-spacing:.8em;}
+60%{opacity:1;}
+100%{opacity:1;transform:none;letter-spacing:.15em;}
+}
+
+.intro-sub{
+font-size:.7rem;letter-spacing:.5em;color:rgba(255,255,255,.4);
+margin-top:10px;opacity:0;animation:ifadeup .7s 2.4s forwards;
+}
+
+.intro-line{
+width:0;height:2px;margin:20px auto;
+background:linear-gradient(90deg,transparent,var(--cyan),var(--pink),transparent);
+box-shadow:0 0 8px var(--cyan);
+animation:iline .7s 2.2s ease-out forwards;
+}
+@keyframes iline{to{width:350px}}
+
+.intro-btn{
+font-family:'Orbitron',sans-serif;font-size:.85rem;letter-spacing:.3em;
+background:none;border:1px solid rgba(0,242,254,.4);color:var(--cyan);
+padding:14px 36px;cursor:pointer;
+opacity:0;animation:ifadeup .7s 2.8s forwards, ipulse 2s 3.2s ease-in-out infinite;
+transition:all .3s;position:relative;overflow:hidden;
+}
+.intro-btn::before{
+content:'';position:absolute;inset:0;
+background:linear-gradient(90deg,transparent,rgba(0,242,254,.12),transparent);
+transform:translateX(-100%);animation:ishimmer 3s 3s infinite;
+}
+@keyframes ishimmer{to{transform:translateX(100%)}}
+.intro-btn:hover{background:rgba(0,242,254,.1);box-shadow:0 0 20px rgba(0,242,254,.4);letter-spacing:.5em;}
+@keyframes ipulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+@keyframes ifadeup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+#intro.iexit{animation:iexitanim .7s cubic-bezier(.7,0,1,1) forwards;}
+@keyframes iexitanim{
+0%{opacity:1;transform:scale(1)}
+50%{opacity:1;transform:scale(1.04) brightness(2)}
+100%{opacity:0;transform:scale(1.08)}
+}
+
+/* ═══ GAME ═══ */
+#gameWrap{display:none;}
+#gameWrap.show{display:flex;flex-direction:column;align-items:center;width:100%;}
+
+/* HUD */
+.hud{
+position:sticky;top:0;width:100%;
+background:rgba(15,23,42,.95);padding:15px;
+display:flex;justify-content:space-around;
+border-bottom:2px solid var(--cyan);z-index:10;
+backdrop-filter:blur(10px);
+}
+.stat-val{display:block;font-size:1.5rem;color:var(--gold);text-shadow:0 0 10px var(--gold);}
+
+/* GAME */
+.game-container{
+margin-top:30px;background:var(--card);padding:25px;
+border-radius:20px;border:2px solid var(--cyan);
+text-align:center;box-shadow:0 0 25px rgba(0,242,254,.2);
+width:360px;
+}
+
+.diff-selector{display:flex;gap:10px;justify-content:center;margin-bottom:20px;}
+.diff-btn{
+background:#1e293b;border:1px solid var(--cyan);color:white;
+padding:10px 15px;cursor:pointer;border-radius:8px;transition:.2s;
+font-family:'Orbitron',sans-serif;
+}
+.diff-btn:hover{transform:scale(1.1);}
+.diff-btn.active{background:var(--cyan);color:black;font-weight:bold;box-shadow:0 0 10px var(--cyan);}
+
+.grid{display:grid;grid-template-columns:repeat(3,90px);gap:10px;justify-content:center;}
+.cell{
+width:90px;height:90px;background:#020617;border:2px solid #1e293b;
+display:flex;justify-content:center;align-items:center;
+font-size:2.5rem;cursor:pointer;border-radius:10px;transition:.2s;
+}
+.cell:hover{background:rgba(0,242,254,.1);transform:scale(1.05);}
+.cell.x{color:var(--cyan);text-shadow:0 0 10px var(--cyan);animation:pop .2s;}
+.cell.o{color:var(--pink);text-shadow:0 0 10px var(--pink);animation:pop .2s;}
+@keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}
+
+/* STORE */
+.store-title{margin-top:70px;font-size:2rem;color:var(--pink);text-shadow:0 0 10px var(--pink);}
+.store-grid{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;width:90%;max-width:1000px;margin-top:30px;
+}
+.item-card{
+background:var(--card);padding:20px;border-radius:15px;
+text-align:center;transition:.3s;border:1px solid rgba(255,255,255,.05);
+}
+.item-card:hover{transform:translateY(-10px) scale(1.03);box-shadow:0 0 20px rgba(255,0,193,.3);}
+.item-img{
+width:100%;height:150px;border-radius:10px;
+background-size:cover;background-position:center;margin-bottom:15px;
+}
+.buy-btn{
+background:linear-gradient(45deg,var(--cyan),var(--pink));border:none;
+padding:10px;width:100%;border-radius:8px;cursor:pointer;
+color:white;font-weight:bold;transition:.2s;font-family:'Orbitron',sans-serif;
+}
+.buy-btn:hover{transform:scale(1.05);box-shadow:0 0 10px var(--cyan);}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <div id="intro-stars"></div>
+  <div class="intro-grid"></div>
+  <div class="intro-scanline"></div>
+  <div class="intro-corner ic-tl" style="animation-delay:2.8s"></div>
+  <div class="intro-corner ic-tr" style="animation-delay:2.9s"></div>
+  <div class="intro-corner ic-bl" style="animation-delay:3s"></div>
+  <div class="intro-corner ic-br" style="animation-delay:3.1s"></div>
+
+  <div class="intro-logo">
+    <div class="intro-publisher">VORTEXA STUDIOS PRESENTS</div>
+    <div class="intro-xo">
+      <span class="intro-x">X</span>
+      <div>
+        <div class="intro-title">VORTEXA</div>
+        <div class="intro-sub">PRIME · EDITION · 2025</div>
+      </div>
+      <span class="intro-o">O</span>
+    </div>
+    <div class="intro-line"></div>
+    <button class="intro-btn" onclick="startGame()">▶ &nbsp; PRESS START</button>
+  </div>
+</div>
+
+<!-- GAME -->
+<div id="gameWrap">
+
+<div class="hud">
+<div>COINS<span id="coins" class="stat-val">0</span></div>
+<div>WINS<span id="wins" class="stat-val">0</span></div>
+</div>
+
+<div class="game-container">
+
+<div class="diff-selector">
+<button class="diff-btn active" data-level="easy">EASY</button>
+<button class="diff-btn" data-level="hard">HARD</button>
+<button class="diff-btn" data-level="god">LEGEND</button>
+</div>
+
+<div id="status" style="margin-bottom:15px;color:var(--cyan)">YOUR TURN</div>
+
+<div class="grid">
+<div class="cell"></div><div class="cell"></div><div class="cell"></div>
+<div class="cell"></div><div class="cell"></div><div class="cell"></div>
+<div class="cell"></div><div class="cell"></div><div class="cell"></div>
+</div>
+
+<button onclick="resetGame()" style="margin-top:20px;padding:10px;border:1px solid var(--cyan);background:none;color:var(--cyan);width:100%;border-radius:8px;font-family:'Orbitron',sans-serif;cursor:pointer;">
+RESET
+</button>
+
+</div>
+
+<h1 class="store-title">VORTEXA PRIME STORE</h1>
+
+<div class="store-grid">
+
+<div class="item-card">
+<div class="item-img" style="background-image:url('https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=500')"></div>
+<h3>PS5</h3><p style="color:var(--gold)">40,000</p>
+<button class="buy-btn" onclick="buy(40000)">BUY</button>
+</div>
+
+<div class="item-card">
+<div class="item-img" style="background-image:url('https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=500')"></div>
+<h3>XBOX</h3><p style="color:var(--gold)">55,000</p>
+<button class="buy-btn" onclick="buy(55000)">BUY</button>
+</div>
+
+<div class="item-card">
+<div class="item-img" style="background-image:url('https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=500')"></div>
+<h3>PC RTX</h3><p style="color:var(--gold)">200,000</p>
+<button class="buy-btn" onclick="buy(200000)">BUY</button>
+</div>
+
+<div class="item-card">
+<div class="item-img" style="background-image:url('https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=500')"></div>
+<h3>VR HEADSET</h3><p style="color:var(--gold)">80,000</p>
+<button class="buy-btn" onclick="buy(80000)">BUY</button>
+</div>
+
+<div class="item-card">
+<div class="item-img" style="background-image:url('https://images.unsplash.com/photo-1585079542156-2755d9c8affb?q=80&w=500')"></div>
+<h3>LEGO TECH</h3><p style="color:var(--gold)">40,000</p>
+<button class="buy-btn" onclick="buy(40000)">BUY</button>
+</div>
+
+</div>
+
+</div><!-- end gameWrap -->
+
+<script>
+// ── INTRO STARS ──
+const iStars=document.getElementById('intro-stars');
+for(let i=0;i<100;i++){
+  const s=document.createElement('div');s.className='istar';
+  const sz=Math.random()*2+.5;
+  s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${Math.random()*3+2}s;animation-delay:${Math.random()*4}s;`;
+  iStars.appendChild(s);
+}
+
+function startGame(){
+  const intro=document.getElementById('intro');
+  intro.classList.add('iexit');
+  setTimeout(()=>{
+    intro.style.display='none';
+    document.getElementById('gameWrap').classList.add('show');
+  },700);
+}
+
+// ── GAME LOGIC (كودك الأصلي بدون تغيير) ──
+let board=["","","","","","","","",""];
+let active=true;
+let coins=0;
+let wins=0;
+let difficulty="easy";
+
+const cells=document.querySelectorAll(".cell");
+
+cells.forEach((c,i)=>{
+c.addEventListener("click",()=>playerMove(i));
+});
+
+document.querySelectorAll(".diff-btn").forEach(btn=>{
+btn.addEventListener("click",()=>{
+difficulty=btn.dataset.level;
+document.querySelectorAll(".diff-btn").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+resetGame();
+});
+});
+
+function playerMove(i){
+if(board[i]!==""||!active)return;
+board[i]="X";
+render();
+if(!checkEnd()){setTimeout(aiMove,400);}
+}
+
+function aiMove(){
+if(!active)return;
+let empty=board.map((v,i)=>v===""?i:null).filter(v=>v!==null);
+let move;
+if(difficulty==="easy"){move=empty[Math.floor(Math.random()*empty.length)];}
+else if(difficulty==="hard"){move=smartMove()??empty[0];}
+else{move=bestMove();}
+if(move!==undefined){board[move]="O";render();checkEnd();}
+}
+
+function smartMove(){
+const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+for(let l of w){let v=l.map(i=>board[i]);if(v.filter(x=>x==="O").length===2&&v.includes(""))return l[v.indexOf("")];}
+for(let l of w){let v=l.map(i=>board[i]);if(v.filter(x=>x==="X").length===2&&v.includes(""))return l[v.indexOf("")];}
+return board[4]===""?4:null;
+}
+
+function bestMove(){
+let bestScore=-Infinity,move;
+for(let i=0;i<9;i++){if(board[i]===""){board[i]="O";let score=minimax(board,false);board[i]="";if(score>bestScore){bestScore=score;move=i;}}}
+return move;
+}
+
+function minimax(b,isMax){
+let result=evaluate(b);if(result!==null)return result;
+if(isMax){let best=-Infinity;for(let i=0;i<9;i++){if(b[i]===""){b[i]="O";best=Math.max(best,minimax(b,false));b[i]="";}}return best;}
+else{let best=Infinity;for(let i=0;i<9;i++){if(b[i]===""){b[i]="X";best=Math.min(best,minimax(b,true));b[i]="";}}return best;}
+}
+
+function evaluate(b){
+const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+for(let l of w){if(b[l[0]]&&b[l[0]]===b[l[1]]&&b[l[0]]===b[l[2]]){if(b[l[0]]==="O")return 10;if(b[l[0]]==="X")return -10;}}
+if(!b.includes(""))return 0;return null;
+}
+
+function render(){
+cells.forEach((c,i)=>{c.innerText=board[i];c.className="cell "+(board[i]?board[i].toLowerCase():"");});
+}
+
+function checkEnd(){
+const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+for(let l of w){
+if(board[l[0]]&&board[l[0]]===board[l[1]]&&board[l[0]]===board[l[2]]){
+active=false;
+if(board[l[0]]==="X"){coins+=(difficulty==="god"?100:(difficulty==="hard"?50:20));wins++;status("WIN");}
+else{status("LOSE");}
+updateStats();return true;
+}}
+if(!board.includes("")){active=false;status("DRAW");return true;}
+return false;
+}
+
+function status(t){document.getElementById("status").innerText=t;}
+function updateStats(){document.getElementById("coins").innerText=coins;document.getElementById("wins").innerText=wins;}
+function resetGame(){board=["","","","","","","","",""];active=true;status("YOUR TURN");render();}
+
+function buy(price){
+if(coins>=price){coins-=price;updateStats();alert("PURCHASE SUCCESS");}
+else{alert("NOT ENOUGH COINS");}
+}
+</script>
+
+</body>
+</html>
