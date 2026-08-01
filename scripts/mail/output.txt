@@ -1,0 +1,87 @@
+ubuntu@mail:~$ sudo bash -c 'echo "### Host identity"; printf "hostname: "; hostname; printf "FQDN: "; hostname -f 2>/dev/null || true; printf "/etc/mailname: "; cat /etc/mailname 2>/dev/null || echo "missing"; echo; echo "### Effective Postfix identity"; postconf myhostname mydomain myorigin mydestination smtpd_tls_cert_file smtpd_tls_key_file 2>/dev/null; echo; echo "### Effective Dovecot TLS identity"; doveconf -n 2>/dev/null | grep -E "^(hostname|ssl_cert|ssl_key)[[:space:]]*=" || true; echo; echo "### Nginx names and certificates"; nginx -T 2>/dev/null | grep -E "^[[:space:]]*(server_name|ssl_certificate|ssl_certificate_key)[[:space:]]" || true; echo; echo "### Certbot certificates"; certbot certificates 2>/dev/null | grep -E "Certificate Name:|Domains:|Expiry Date:|Certificate Path:" || true; echo; echo "### Health monitor configured domain"; grep -nE "^(HOST|CERT_FILE)=" /usr/local/bin/oosyroo-health 2>/dev/null || true; echo; echo "### References to either domain"; grep -RInE "oosyroo\.com|ooysroo\.com" /etc/hostname /etc/hosts /etc/mailname /etc/postfix /etc/dovecot /etc/nginx /etc/letsencrypt/renewal /etc/opendkim.conf /etc/opendkim /etc/default/opendkim 2>/dev/null || true'
+### Host identity
+hostname: mail.ooysroo.com
+FQDN: mail.ooysroo.com
+/etc/mailname: oosyroo.com
+
+### Effective Postfix identity
+myhostname = mail.ooysroo.com
+mydomain = oosyroo.com
+myorigin = $mydomain
+mydestination = $myhostname, mail.oosyroo.com, localhost.$mydomain, localhost, ooysroo.com, oosyroo.com
+smtpd_tls_cert_file = /etc/letsencrypt/live/mail.ooysroo.com/fullchain.pem
+smtpd_tls_key_file = /etc/letsencrypt/live/mail.ooysroo.com/privkey.pem
+
+### Effective Dovecot TLS identity
+ssl_cert = </etc/letsencrypt/live/mail.ooysroo.com/fullchain.pem
+ssl_key = # hidden, use -P to show it
+
+### Nginx names and certificates
+    server_name mekerra.com www.mekerra.com dz.mekerra.com;
+    ssl_certificate /etc/letsencrypt/live/www.mekerra.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/www.mekerra.com/privkey.pem; # managed by Certbot
+    server_name mekerra.com www.mekerra.com dz.mekerra.com;
+
+### Certbot certificates
+  Certificate Name: mail.ooysroo.com
+    Domains: mail.ooysroo.com
+    Expiry Date: 2026-10-30 12:45:49+00:00 (VALID: 89 days)
+    Certificate Path: /etc/letsencrypt/live/mail.ooysroo.com/fullchain.pem
+  Certificate Name: www.mekerra.com
+    Domains: www.mekerra.com dz.mekerra.com mekerra.com
+    Expiry Date: 2026-10-30 07:44:26+00:00 (VALID: 89 days)
+    Certificate Path: /etc/letsencrypt/live/www.mekerra.com/fullchain.pem
+
+### Health monitor configured domain
+8:HOST=mail.oosyroo.com
+
+### References to either domain
+/etc/hostname:1:mail.ooysroo.com
+/etc/hosts:2:127.0.1.1 mail.ooysroo.com mail
+/etc/mailname:1:oosyroo.com
+/etc/postfix/virtual:4:@oosyroo.com            @ooysroo.com
+/etc/postfix/virtual:5:@mail.ooysroo.com       @ooysroo.com
+/etc/postfix/virtual:7:support@ooysroo.com     fares@ooysroo.com
+/etc/postfix/virtual:8:info@ooysroo.com        fares@ooysroo.com
+/etc/postfix/virtual:9:interac@ooysroo.com     fares@ooysroo.com
+/etc/postfix/virtual:10:welcome@ooysroo.com     fares@ooysroo.com
+/etc/postfix/virtual:12:monitor@ooysroo.com     fares@ooysroo.com
+/etc/postfix/virtual:14:dmarc@ooysroo.com       fares@ooysroo.com
+/etc/postfix/virtual:15:postmaster@ooysroo.com  fares@ooysroo.com
+/etc/postfix/virtual:16:ubuntu@ooysroo.com      fares@ooysroo.com
+/etc/postfix/virtual:17:root@ooysroo.com        fares@ooysroo.com
+/etc/postfix/virtual:19:noreply@ooysroo.com     no-reply@ooysroo.com
+/etc/postfix/main.cf:27:smtpd_tls_cert_file = /etc/letsencrypt/live/mail.ooysroo.com/fullchain.pem
+/etc/postfix/main.cf:28:smtpd_tls_key_file = /etc/letsencrypt/live/mail.ooysroo.com/privkey.pem
+/etc/postfix/main.cf:37:myhostname = mail.ooysroo.com
+/etc/postfix/main.cf:41:mydestination = $myhostname, mail.oosyroo.com, localhost.$mydomain, localhost, ooysroo.com, oosyroo.com
+/etc/postfix/main.cf:53:mydomain = oosyroo.com
+/etc/postfix/main.cf:66:virtual_alias_domains = mail.ooysroo.com
+/etc/dovecot/conf.d/10-ssl.conf:14:ssl_cert = </etc/letsencrypt/live/mail.ooysroo.com/fullchain.pem
+/etc/dovecot/conf.d/10-ssl.conf:15:ssl_key = </etc/letsencrypt/live/mail.ooysroo.com/privkey.pem
+/etc/dovecot/conf.d/15-lda.conf:47:  #mail_plugins = $mail_plugins sieve postmaster_address = postmaster@ooysroo.com
+/etc/nginx/sites-available/default:115:    server_name webmail.oosyroo.com; # managed by Certbot
+/etc/nginx/sites-available/default:145:    ssl_certificate /etc/letsencrypt/live/webmail.oosyroo.com/fullchain.pem; # managed by Certbot
+/etc/nginx/sites-available/default:146:    ssl_certificate_key /etc/letsencrypt/live/webmail.oosyroo.com/privkey.pem; # managed by Certbot
+/etc/nginx/sites-available/default:152:    if ($host = webmail.oosyroo.com) {
+/etc/nginx/sites-available/default:159:    server_name webmail.oosyroo.com;
+/etc/letsencrypt/renewal/mail.ooysroo.com.conf:3:archive_dir = /etc/letsencrypt/archive/mail.ooysroo.com
+/etc/letsencrypt/renewal/mail.ooysroo.com.conf:4:cert = /etc/letsencrypt/live/mail.ooysroo.com/cert.pem
+/etc/letsencrypt/renewal/mail.ooysroo.com.conf:5:privkey = /etc/letsencrypt/live/mail.ooysroo.com/privkey.pem
+/etc/letsencrypt/renewal/mail.ooysroo.com.conf:6:chain = /etc/letsencrypt/live/mail.ooysroo.com/chain.pem
+/etc/letsencrypt/renewal/mail.ooysroo.com.conf:7:fullchain = /etc/letsencrypt/live/mail.ooysroo.com/fullchain.pem
+/etc/opendkim.conf:26:Domain			ooysroo.com
+/etc/opendkim.conf:28:KeyFile		        /etc/opendkim/keys/ooysroo.com/mail.private
+/etc/opendkim/SigningTable:1:*@oosyroo.com mail._domainkey.oosyroo.com
+/etc/opendkim/SigningTable:2:*@mail.oosyroo.com mail._domainkey.oosyroo.com
+/etc/opendkim/signing.table:1:*@ooysroo.com mail._domainkey.ooysroo.com
+/etc/opendkim/KeyTable:1:mail._domainkey.oosyroo.com oosyroo.com:mail:/etc/opendkim/keys/oosyroo.com/mail.private
+/etc/opendkim/TrustedHosts:3:mail.oosyroo.com
+/etc/opendkim/TrustedHosts:4:*.oosyroo.com
+/etc/opendkim/trusted.hosts:3:*.ooysroo.com
+/etc/opendkim/keys/ooysroo.com/mail.txt:3:	  "OCdf4SsufVTFYi0/+o4o/n2DjRdMOEDG6DwLbGuyT4j4tcdj/rSmpnNYSnKS1JJhI4zAZ/9ifcJB3En/gyxfUH6OUsgmInKmtW7xX/eE+VTULzAl8RipDoGdkD6O/NqqW9yljuswIDAQAB" )  ; ----- DKIM key mail for ooysroo.com
+/etc/opendkim/keys/oosyroo.com/mail.txt:3:	  "KHszgZdWOf8eHT8gGrdq9LPs+EfFtksx4WiN7YAaOCb0VNcLkZUeetyicUE2Hi3CibXyG4GJG1oLoF8itFyUaE8g3wVBFGICQjIrylo4USq3XPmH18Ly/jK3I7Z4GgmtX1qjiX6wIDAQAB" )  ; ----- DKIM key mail for oosyroo.com
+/etc/opendkim/key.table:1:mail._domainkey.ooysroo.com ooysroo.com:mail:/etc/opendkim/keys/ooysroo.com/mail.private
+ubuntu@mail:~$ 
+
+
