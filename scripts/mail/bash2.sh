@@ -1,0 +1,1 @@
+sudo find /usr/local/bin /root /home /etc -type f \( -name 'oosyroo-health*' -o -name 'oosyroo-certbot-check*' \) -print 2>/dev/null
