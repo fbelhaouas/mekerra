@@ -1,0 +1,11 @@
+ubuntu@mail:~$ sudo journalctl -u certbot.service --since "2026-08-01 08:35:00 UTC" --until "2026-08-01 08:50:00 UTC" --no-pager -o short-iso
+2026-08-01T08:42:46+00:00 mail.ooysroo.com systemd[1]: Starting certbot.service - Certbot...
+2026-08-01T08:42:48+00:00 mail.ooysroo.com certbot[2230697]: Failed to renew certificate mail.ooysroo.com with error: Could not bind TCP port 80 because it is already in use by another process on this system (such as a web server). Please stop the program in question and then try again.
+2026-08-01T08:43:02+00:00 mail.ooysroo.com certbot[2230697]: The following renewals failed:
+2026-08-01T08:43:02+00:00 mail.ooysroo.com certbot[2230697]:   /etc/letsencrypt/live/mail.ooysroo.com/fullchain.pem (failure)
+2026-08-01T08:43:02+00:00 mail.ooysroo.com certbot[2230697]: 1 renew failure(s), 0 parse failure(s)
+2026-08-01T08:43:03+00:00 mail.ooysroo.com systemd[1]: certbot.service: Main process exited, code=exited, status=1/FAILURE
+2026-08-01T08:43:03+00:00 mail.ooysroo.com systemd[1]: certbot.service: Failed with result 'exit-code'.
+2026-08-01T08:43:03+00:00 mail.ooysroo.com systemd[1]: Failed to start certbot.service - Certbot.
+2026-08-01T08:43:03+00:00 mail.ooysroo.com systemd[1]: certbot.service: Consumed 1.734s CPU time.
+ubuntu@mail:~$
