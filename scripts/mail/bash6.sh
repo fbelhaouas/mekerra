@@ -1,0 +1,1 @@
+sudo bash -c 'target=/usr/local/bin/oosyroo-health; if [ -e "$target" ]; then cp -a -- "$target" "$target.backup-$(date +%Y%m%d-%H%M%S)"; fi; exec vi "$target"'
