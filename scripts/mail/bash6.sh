@@ -1,3 +1,8 @@
+sudo bash -c 'for f in $(ls -1t /var/log/letsencrypt/letsencrypt.log* 2>/dev/null); do if zgrep -q "Could not bind TCP port 80" "$f"; then echo "### $f"; zgrep -n -B 35 -A 35 "Could not bind TCP port 80" "$f" | tail -n 120; break; fi; done'
+
+
+old way new last
+
 sudo bash -c 'target=/usr/local/bin/oosyroo-health; if [ -e "$target" ]; then cp -a -- "$target" "$target.backup-$(date +%Y%m%d-%H%M%S)"; fi; exec vi "$target"'
 
 sudo bash -n /usr/local/bin/oosyroo-health && echo "Syntax OK"
