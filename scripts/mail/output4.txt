@@ -1,0 +1,17 @@
+ubuntu@mail:~$ sudo sed -n '1,220p' /etc/letsencrypt/renewal/mail.ooysroo.com.conf
+# renew_before_expiry = 30 days
+version = 2.9.0
+archive_dir = /etc/letsencrypt/archive/mail.ooysroo.com
+cert = /etc/letsencrypt/live/mail.ooysroo.com/cert.pem
+privkey = /etc/letsencrypt/live/mail.ooysroo.com/privkey.pem
+chain = /etc/letsencrypt/live/mail.ooysroo.com/chain.pem
+fullchain = /etc/letsencrypt/live/mail.ooysroo.com/fullchain.pem
+
+# Options used in the renewal process
+[renewalparams]
+account = bfad3e190d34d470487fa25e1b48c3d8
+authenticator = nginx
+server = https://acme-v02.api.letsencrypt.org/directory
+key_type = ecdsa
+installer = nginx
+
