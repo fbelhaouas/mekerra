@@ -6,6 +6,10 @@ sudo bash -c 'target=/usr/local/bin/oosyroo-health; cp -a -- "$target" "$target.
 
 sudo /usr/local/bin/oosyroo-health --dry-run
 
+sudo bash -c 'echo "### Host identity"; printf "hostname: "; hostname; printf "FQDN: "; hostname -f 2>/dev/null || true; printf "/etc/mailname: "; cat /etc/mailname 2>/dev/null || echo "missing"; echo; echo "### Effective Postfix identity"; postconf myhostname mydomain myorigin mydestination smtpd_tls_cert_file smtpd_tls_key_file 2>/dev/null; echo; echo "### Effective Dovecot TLS identity"; doveconf -n 2>/dev/null | grep -E "^(hostname|ssl_cert|ssl_key)[[:space:]]*=" || true; echo; echo "### Nginx names and certificates"; nginx -T 2>/dev/null | grep -E "^[[:space:]]*(server_name|ssl_certificate|ssl_certificate_key)[[:space:]]" || true; echo; echo "### Certbot certificates"; certbot certificates 2>/dev/null | grep -E "Certificate Name:|Domains:|Expiry Date:|Certificate Path:" || true; echo; echo "### Health monitor configured domain"; grep -nE "^(HOST|CERT_FILE)=" /usr/local/bin/oosyroo-health 2>/dev/null || true; echo; echo "### References to either domain"; grep -RInE "oosyroo\.com|ooysroo\.com" /etc/hostname /etc/hosts /etc/mailname /etc/postfix /etc/dovecot /etc/nginx /etc/letsencrypt/renewal /etc/opendkim.conf /etc/opendkim /etc/default/opendkim 2>/dev/null || true'
+
+
+
 
 
 
