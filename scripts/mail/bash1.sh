@@ -1,1 +1,1 @@
-blabla
+sudo bash -c 'for f in /usr/local/bin/oosyroo-health /usr/local/bin/oosyroo-certbot-check; do printf "\n===== %s =====\n" "$f"; if [ -f "$f" ]; then stat -c "owner=%U group=%G mode=%a size=%s modified=%y" "$f"; nl -ba "$f" | sed -E "s#((PUSHOVER_)?(APP_)?TOKEN|PUSHOVER_USER|USER_KEY|PASSWORD|SECRET)([[:space:]]*=[[:space:]]*)[^[:space:]]+#\1\4[REDACTED]#Ig"; else echo "MISSING"; fi; done'
