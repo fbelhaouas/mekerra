@@ -10,6 +10,7 @@ sudo bash -c 'echo "### Host identity"; printf "hostname: "; hostname; printf "F
 
 sudo bash -c 'set -e; f=/usr/local/bin/oosyroo-health; cp -a -- "$f" "$f.backup-$(date +%Y%m%d-%H%M%S)"; sed -i '\''s/^HOST=.*/HOST="mail.ooysroo.com"/'\'' "$f"; bash -n "$f"; grep -nE "^(HOST|CERT_FILE)=" "$f"'
 
+sudo journalctl -u certbot.service --since "2026-08-01 08:35:00 UTC" --until "2026-08-01 08:50:00 UTC" --no-pager -o short-iso
 
 
 
