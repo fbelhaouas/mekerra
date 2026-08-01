@@ -12,6 +12,7 @@ sudo bash -c 'set -e; f=/usr/local/bin/oosyroo-health; cp -a -- "$f" "$f.backup-
 
 sudo journalctl -u certbot.service --since "2026-08-01 08:35:00 UTC" --until "2026-08-01 08:50:00 UTC" --no-pager -o short-iso
 
+sudo journalctl -u certbot.service --since "2026-08-01 08:35:00 UTC" --until "2026-08-01 08:50:00 UTC" --no-pager -o short-iso
 
 
 
