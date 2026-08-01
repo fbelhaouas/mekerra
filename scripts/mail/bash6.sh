@@ -18,6 +18,7 @@ sudo sed -n '1,220p' /etc/letsencrypt/renewal/mail.ooysroo.com.conf
 
 sudo systemctl cat certbot.service
 
+sudo bash -c 'echo "### Global Certbot configuration"; if [ -f /etc/letsencrypt/cli.ini ]; then sed -n "1,220p" /etc/letsencrypt/cli.ini; else echo "/etc/letsencrypt/cli.ini is missing"; fi; echo; echo "### Standalone and port-related settings"; grep -RInE "^[[:space:]]*(authenticator|installer|http-01-port|pre_hook|post_hook|renew_hook)[[:space:]]*=|standalone" /etc/letsencrypt --include="*.conf" --include="*.ini" 2>/dev/null'
 
 
 
