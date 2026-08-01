@@ -1,0 +1,27 @@
+ubuntu@mail:~$ sudo /usr/local/bin/oosyroo-health --dry-run
+Oosyroo Mail Health: FAIL
+
+Postfix: OK
+Dovecot: OK
+OpenDKIM: OK
+Nginx systemd state: OK
+Required listeners: OK (25,80,143,443,993; submission 587 465)
+Nginx process ownership: OK (systemd master PID 2227632)
+Certificate: 89 days remaining
+Last renewal: 2026-08-01 13:44 UTC
+IMAPS TLS: OK (993, 89 days remaining)
+SMTP TLS 587: OK (587, 89 days remaining)
+SMTP TLS 465: OK (465, 89 days remaining)
+Certbot timer: OK
+Next Certbot run: Sat 2026-08-01 20:17:57 UTC
+Last Certbot run: FAIL (result=exit-code, exit=1, time=Sat 2026-08-01 08:43:03 UTC)
+Recent Certbot errors: FAIL (657 found in 7 days)
+Certbot deploy hooks: OK
+Mail queue: 0 deferred (0 total)
+Local mailbox access: OK (no-reply)
+Outside-in probe: not configured; this script validates the mail server locally
+Postfix-Dovecot sockets: OK
+Pushover secrets: OK
+Pushover: TEST notification sent
+ubuntu@mail:~$ 
+
