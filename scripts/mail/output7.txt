@@ -1,0 +1,123 @@
+ubuntu@mail:~$ sudo bash -c 'for f in $(ls -1t /var/log/letsencrypt/letsencrypt.log* 2>/dev/null); do if zgrep -q "Could not bind TCP port 80" "$f"; then echo "### $f"; zgrep -n -B 35 -A 35 "Could not bind TCP port 80" "$f" | tail -n 120; break; fi; done'
+### /var/log/letsencrypt/letsencrypt.log
+13944-  File "/usr/lib/python3/dist-packages/certbot/_internal/auth_handler.py", line 88, in handle_authorizations
+13945-    resps = self.auth.perform(achalls)
+13946-            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+13947-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 164, in perform
+13948-    return [self._try_perform_single(achall) for achall in achalls]
+13949-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13950-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 172, in _try_perform_single
+13951-    _handle_perform_error(error)
+13952-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 226, in _handle_perform_error
+13953-    raise errors.PluginError(msg)
+13954:certbot.errors.PluginError: Could not bind TCP port 80 because it is already in use by another process on this system (such as a web server). Please stop the program in question and then try again.
+13955-
+13956-2026-08-01 08:42:48,243:DEBUG:certbot._internal.error_handler:Calling registered functions
+13957-2026-08-01 08:42:48,243:INFO:certbot._internal.auth_handler:Cleaning up challenges
+13958:2026-08-01 08:42:48,243:ERROR:certbot._internal.renewal:Failed to renew certificate mail.ooysroo.com with error: Could not bind TCP port 80 because it is already in use by another process on this system (such as a web server). Please stop the program in question and then try again.
+13959-2026-08-01 08:42:48,249:DEBUG:certbot._internal.renewal:Traceback was:
+13960-Traceback (most recent call last):
+13961-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 79, in run
+13962-    servers = acme_standalone.HTTP01DualNetworkedServers(
+13963-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13964-  File "/usr/lib/python3/dist-packages/acme/standalone.py", line 219, in __init__
+13965-    super().__init__(HTTP01Server, *args, **kwargs)
+13966-  File "/usr/lib/python3/dist-packages/acme/standalone.py", line 122, in __init__
+13967-    raise last_socket_err
+13968-  File "/usr/lib/python3/dist-packages/acme/standalone.py", line 97, in __init__
+13969-    server = ServerClass(*new_args, **kwargs)
+13970-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13971-  File "/usr/lib/python3/dist-packages/acme/standalone.py", line 209, in __init__
+13972-    super().__init__(
+13973-  File "/usr/lib/python3/dist-packages/acme/standalone.py", line 201, in __init__
+13974-    super().__init__(*args, **kwargs)
+13975-  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+13976-    self.server_bind()
+13977-  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+13978-    socketserver.TCPServer.server_bind(self)
+13979-  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+13980-    self.socket.bind(self.server_address)
+13981-OSError: [Errno 98] Address already in use
+13982-
+13983-During handling of the above exception, another exception occurred:
+13984-
+13985-Traceback (most recent call last):
+13986-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 170, in _try_perform_single
+13987-    return self._perform_single(achall)
+13988-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13989-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 176, in _perform_single
+13990-    servers, response = self._perform_http_01(achall)
+13991-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13992-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 185, in _perform_http_01
+13993-    servers = self.servers.run(port, challenges.HTTP01, listenaddr=addr)
+13994-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13995-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 82, in run
+13996-    raise errors.StandaloneBindError(error, port)
+13997-certbot.errors.StandaloneBindError: Problem binding to port 80: [Errno 98] Address already in use
+13998-
+13999-During handling of the above exception, another exception occurred:
+14000-
+14001-Traceback (most recent call last):
+14002-  File "/usr/lib/python3/dist-packages/certbot/_internal/renewal.py", line 540, in handle_renewal_request
+14003-    main.renew_cert(lineage_config, plugins, renewal_candidate)
+14004-  File "/usr/lib/python3/dist-packages/certbot/_internal/main.py", line 1550, in renew_cert
+14005-    renewed_lineage = _get_and_save_cert(le_client, config, lineage=lineage)
+14006-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14007-  File "/usr/lib/python3/dist-packages/certbot/_internal/main.py", line 131, in _get_and_save_cert
+14008-    renewal.renew_cert(config, domains, le_client, lineage)
+14009-  File "/usr/lib/python3/dist-packages/certbot/_internal/renewal.py", line 399, in renew_cert
+14010-    new_cert, new_chain, new_key, _ = le_client.obtain_certificate(domains, new_key)
+14011-                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14012-  File "/usr/lib/python3/dist-packages/certbot/_internal/client.py", line 428, in obtain_certificate
+14013-    orderr = self._get_order_and_authorizations(csr.data, self.config.allow_subset_of_names)
+14014-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14015-  File "/usr/lib/python3/dist-packages/certbot/_internal/client.py", line 496, in _get_order_and_authorizations
+14016-    authzr = self.auth_handler.handle_authorizations(orderr, self.config, best_effort)
+14017-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14018-  File "/usr/lib/python3/dist-packages/certbot/_internal/auth_handler.py", line 88, in handle_authorizations
+14019-    resps = self.auth.perform(achalls)
+14020-            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+14021-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 164, in perform
+14022-    return [self._try_perform_single(achall) for achall in achalls]
+14023-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14024-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 172, in _try_perform_single
+14025-    _handle_perform_error(error)
+14026-  File "/usr/lib/python3/dist-packages/certbot/_internal/plugins/standalone.py", line 226, in _handle_perform_error
+14027-    raise errors.PluginError(msg)
+14028:certbot.errors.PluginError: Could not bind TCP port 80 because it is already in use by another process on this system (such as a web server). Please stop the program in question and then try again.
+14029-
+14030-2026-08-01 08:42:48,250:DEBUG:certbot._internal.display.obj:Notifying user: Processing /etc/letsencrypt/renewal/www.mekerra.com.conf
+14031-2026-08-01 08:42:48,252:DEBUG:certbot._internal.plugins.selection:Requested authenticator None and installer None
+14032-2026-08-01 08:42:48,252:DEBUG:certbot._internal.plugins.selection:Requested authenticator None and installer None
+14033-2026-08-01 08:42:48,268:DEBUG:certbot._internal.storage:Should renew, less than 30 days before certificate expiry 2026-07-28 22:57:40 UTC.
+14034-2026-08-01 08:42:48,269:INFO:certbot._internal.renewal:Certificate is due for renewal, auto-renewing...
+14035-2026-08-01 08:42:48,269:DEBUG:certbot._internal.plugins.selection:Requested authenticator nginx and installer nginx
+14036-2026-08-01 08:42:48,418:DEBUG:certbot._internal.plugins.selection:Single candidate plugin: * nginx
+14037-Description: Nginx Web Server plugin
+14038-Interfaces: Authenticator, Installer, Plugin
+14039-Entry point: EntryPoint(name='nginx', value='certbot_nginx._internal.configurator:NginxConfigurator', group='certbot.plugins')
+14040-Initialized: <certbot_nginx._internal.configurator.NginxConfigurator object at 0xe8f745de6ba0>
+14041-Prep: True
+14042-2026-08-01 08:42:48,418:DEBUG:certbot._internal.plugins.selection:Single candidate plugin: * nginx
+14043-Description: Nginx Web Server plugin
+14044-Interfaces: Authenticator, Installer, Plugin
+14045-Entry point: EntryPoint(name='nginx', value='certbot_nginx._internal.configurator:NginxConfigurator', group='certbot.plugins')
+14046-Initialized: <certbot_nginx._internal.configurator.NginxConfigurator object at 0xe8f745de6ba0>
+14047-Prep: True
+14048-2026-08-01 08:42:48,418:DEBUG:certbot._internal.plugins.selection:Selected authenticator <certbot_nginx._internal.configurator.NginxConfigurator object at 0xe8f745de6ba0> and installer <certbot_nginx._internal.configurator.NginxConfigurator object at 0xe8f745de6ba0>
+14049-2026-08-01 08:42:48,418:INFO:certbot._internal.plugins.selection:Plugins selected: Authenticator nginx, Installer nginx
+14050-2026-08-01 08:42:48,670:DEBUG:certbot._internal.main:Picked account: <Account(RegistrationResource(body=Registration(key=None, contact=(), agreement=None, status=None, terms_of_service_agreed=None, only_return_existing=None, external_account_binding=None), uri='https://acme-v02.api.letsencrypt.org/acme/acct/2979157256', new_authzr_uri=None, terms_of_service=None), bfad3e190d34d470487fa25e1b48c3d8, Meta(creation_dt=datetime.datetime(2026, 1, 19, 20, 15, 42, tzinfo=<UTC>), creation_host='mail.oosyroo.com', register_to_eff=None))>
+14051-2026-08-01 08:42:48,671:DEBUG:acme.client:Sending GET request to https://acme-v02.api.letsencrypt.org/directory.
+14052-2026-08-01 08:42:48,672:DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): acme-v02.api.letsencrypt.org:443
+14053-2026-08-01 08:42:49,091:DEBUG:urllib3.connectionpool:https://acme-v02.api.letsencrypt.org:443 "GET /directory HTTP/1.1" 200 961
+14054-2026-08-01 08:42:49,092:DEBUG:acme.client:Received response:
+14055-HTTP 200
+14056-Server: nginx
+14057-Date: Sat, 01 Aug 2026 08:42:49 GMT
+14058-Content-Type: application/json
+14059-Content-Length: 961
+14060-Connection: keep-alive
+14061-Cache-Control: public, max-age=0, no-cache
+14062-X-Frame-Options: DENY
+14063-Strict-Transport-Security: max-age=604800
+
