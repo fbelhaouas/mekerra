@@ -14,6 +14,7 @@ sudo journalctl -u certbot.service --since "2026-08-01 08:35:00 UTC" --until "20
 
 sudo journalctl -u certbot.service --since "2026-08-01 08:35:00 UTC" --until "2026-08-01 08:50:00 UTC" --no-pager -o short-iso
 
+sudo sed -n '1,220p' /etc/letsencrypt/renewal/mail.ooysroo.com.conf
 
 
 
