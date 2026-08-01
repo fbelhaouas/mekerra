@@ -1,0 +1,13 @@
+ubuntu@mail:~$ sudo bash -c 'echo "### Global Certbot configuration"; if [ -f /etc/letsencrypt/cli.ini ]; then sed -n "1,220p" /etc/letsencrypt/cli.ini; else echo "/etc/letsencrypt/cli.ini is missing"; fi; echo; echo "### Standalone and port-related settings"; grep -RInE "^[[:space:]]*(authenticator|installer|http-01-port|pre_hook|post_hook|renew_hook)[[:space:]]*=|standalone" /etc/letsencrypt --include="*.conf" --include="*.ini" 2>/dev/null'
+### Global Certbot configuration
+# Because we are using logrotate for greater flexibility, disable the
+# internal certbot logrotation.
+max-log-backups = 0
+# Adjust interactive output regarding automated renewal
+preconfigured-renewal = True
+
+### Standalone and port-related settings
+/etc/letsencrypt/renewal/mail.ooysroo.com.conf:12:authenticator = nginx
+/etc/letsencrypt/renewal/mail.ooysroo.com.conf:15:installer = nginx
+/etc/letsencrypt/renewal/www.mekerra.com.conf:12:authenticator = nginx
+/etc/letsencrypt/renewal/www.mekerra.com.conf:13:installer = nginx
